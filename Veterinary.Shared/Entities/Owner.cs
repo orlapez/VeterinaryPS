@@ -31,14 +31,14 @@ namespace Veterinary.Shared.Entities
 
         [Display(Name = "Teléfono fijo")]
         [MaxLength(7, ErrorMessage = "El {3} no puede tener más de 7 caracteres.")]
-        public int FixedPhone { get; set; }
+        public string FixedPhone { get; set; }
 
         [Display(Name = "Teléfono móvil")]
         [MaxLength(10, ErrorMessage = "El {4} no puede tener más de 10 caracteres.")]
         public string CellPhone { get; set; }
 
         [Display(Name = "Dirección de residencia")]
-        [MaxLength(10, ErrorMessage = "El {5} no puede tener más de 10 caracteres.")]
+        [MaxLength(50, ErrorMessage = "El {5} no puede tener más de 10 caracteres.")]
         [Required(ErrorMessage = "El {5} es obligatorio")]
         public string Address { get; set; }
 
