@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Runtime.InteropServices;
 using Veterinary.API.Data;
 using Veterinary.Shared.Entities;
 
@@ -9,13 +8,13 @@ namespace Veterinary.API.Controllers
 
 
     [ApiController]
-    [Route("/api/owners")]
-    public class OwnersController : ControllerBase
+    [Route("/api/pets")]
+
+    public class PetsController:ControllerBase
     {
 
-
         private readonly DataContext _context;
-        public OwnersController(DataContext context)
+        public PetsController(DataContext context)
         {
 
             _context = context;
@@ -23,13 +22,12 @@ namespace Veterinary.API.Controllers
         }
 
 
-
         //Get por Lista--- Select * From Owners
         [HttpGet]
         public async Task<ActionResult> Get()
         {
 
-            return Ok(await _context.Owners.ToListAsync());
+            return Ok(await _context.Pets.ToListAsync());
 
 
         }
@@ -40,8 +38,8 @@ namespace Veterinary.API.Controllers
         public async Task<ActionResult> Get(int id)
         {
 
-            var owner = await _context.Owners.FirstOrDefaultAsync(x => x.Id == id);
-            if (owner == null)
+            var pet= await _context.Pets.FirstOrDefaultAsync(x => x.Id == id);
+            if (pet== null)
             {
 
                 return NotFound();
@@ -49,7 +47,7 @@ namespace Veterinary.API.Controllers
             }
             else
             {
-                return Ok(owner);
+                return Ok(pet);
 
 
 
@@ -64,13 +62,13 @@ namespace Veterinary.API.Controllers
 
         [HttpPost]
 
-        public async Task<ActionResult> Post(Owner owner)
+        public async Task<ActionResult> Post(Pet pet)
         {
 
-            _context.Add(owner);
+            _context.Add(pet);
             await _context.SaveChangesAsync();
 
-            return Ok(owner);
+            return Ok(pet);
 
 
 
@@ -81,13 +79,13 @@ namespace Veterinary.API.Controllers
         // Put- modificar un Owner
         [HttpPut]
 
-        public async Task<ActionResult> Put(Owner owner)
+        public async Task<ActionResult> Put(Pet pet)
         {
 
-            _context.Update(owner);
+            _context.Update(pet);
             await _context.SaveChangesAsync();
 
-            return Ok(owner);
+            return Ok(pet);
 
 
 
@@ -102,7 +100,7 @@ namespace Veterinary.API.Controllers
         {
 
 
-            var FilasAfectadas = await _context.Owners
+            var FilasAfectadas = await _context.Pets
                 .Where(a => a.Id == id)
                 .ExecuteDeleteAsync();
 
@@ -136,15 +134,10 @@ namespace Veterinary.API.Controllers
 
 
 
-      
 
 
 
 
-        }
+
     }
-
-
-
-
-
+}
