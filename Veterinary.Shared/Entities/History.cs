@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Veterinary.Shared.Entities
@@ -31,9 +32,13 @@ namespace Veterinary.Shared.Entities
         [DataType(DataType.MultilineText)]
         public string Remarks { get; set; }
 
+        [JsonIgnore]
+        public ServiceType ServiceTypes { get; set; }
+        public int ServiceTypeId { get; set; }
 
-        public ServiceType ServiceType { get; set; }
-        public Pet Pet { get; set; }
+        [JsonIgnore]
+        public Pet Pets { get; set; }
+        public int PetTypeId { get; set; }
 
     }
 }
