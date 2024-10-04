@@ -37,7 +37,6 @@ namespace Veterinary.API.Data
                 _context.PetTypes.Add(new PetType { Name = "Cat" });
                 _context.PetTypes.Add(new PetType { Name = "Hamster" });
                 _context.PetTypes.Add(new PetType { Name = "Rabbit" });
-                _context.PetTypes.Add(new PetType { Name = "Snake" });
 
 
 
