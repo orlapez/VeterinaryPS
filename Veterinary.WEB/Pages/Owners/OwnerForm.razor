@@ -1,5 +1,9 @@
 ﻿@using Veterinary.Shared.Entities
-<EditForm Model="Owner" OnSubmit="OnSubmit">
+
+@inject SweetAlertService swal
+
+<NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation"></NavigationLock>
+<EditForm EditContext="editContext" OnSubmit="OnSubmit">
     <DataAnnotationsValidator />
     <div class="mb-3">
 
@@ -79,6 +83,13 @@
 
 
 @code {
+    private EditContext editContext = null;
+
+    protected override void OnInitialized()
+    {
+        editContext = new(Owner);
+    }
+
 
     [EditorRequired]
     [Parameter]
@@ -95,5 +106,37 @@
     public EventCallback ReturnAction { get; set; }
 
 
+    public bool FormPostedSuccessfully { get; set; } = false;
 
+    private async Task OnBeforeInternalNavigation(LocationChangingContext context)
+    {
+        var formWasEdited = editContext.IsModified();
+
+        if (!formWasEdited)
+        {
+            return;
+        }
+
+        if (FormPostedSuccessfully)
+        {
+            return;
+        }
+
+        var result = await swal.FireAsync(new SweetAlertOptions
+            {
+                Title = "Confirmación",
+                Text = "¿Deseas abandonar la página y perder los cambios?",
+                Icon = SweetAlertIcon.Warning,
+                ShowCancelButton = true
+            });
+
+        var confirm = !string.IsNullOrEmpty(result.Value);
+
+        if (confirm)
+        {
+            return;
+        }
+
+        context.PreventNavigation();
+    }
 }

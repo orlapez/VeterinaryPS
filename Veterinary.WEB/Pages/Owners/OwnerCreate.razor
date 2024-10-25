@@ -7,12 +7,12 @@
 @inject SweetAlertService sweetAlertService
 <h3>Owner  Create</h3>
 
-<OwnerForm @ref="ownerForm" Owner="owner" OnSubmit="Create" ReturnAction="Return" />
+<OwnerForm @ref="ownerForm"  Owner="Owner" OnSubmit="Create" ReturnAction="Return" />
 
 
 
 @code {
-    private Owner owner = new();
+    private Owner Owner = new();
     private OwnerForm ownerForm;
 
 
@@ -20,7 +20,7 @@
     private async Task Create()
     {
 
-        var responseHttp = await repository.PostAsync("/api/owners", owner);
+        var responseHttp = await repository.PostAsync("/api/owners", Owner);
         if (responseHttp.Error)
         {
             var message = await responseHttp.GetErrorMessageAsync();
